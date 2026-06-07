@@ -9,7 +9,7 @@ if firebase_creds:
     cred_dict = json.loads(firebase_creds)
     cred = credentials.Certificate(cred_dict)
 else:
-    cred = credentials.Certificate("serviceAccountKey.json")
+    cred = credentials.Certificate("prespressoKey.json")
 
 firebase_admin.initialize_app(cred)
 db = firestore.client()
