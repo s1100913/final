@@ -3,12 +3,20 @@ import json
 import firebase_admin
 from firebase_admin import credentials, firestore
 
+# 👇 就是少了這兩行關鍵起手式！ 👇
+from flask import Flask, request, jsonify
+app = Flask(__name__)
+# 👆👆👆👆👆👆👆👆👆👆👆👆👆👆
+
+# 嘗試讀取 Vercel 上的環境變數
 firebase_creds = os.environ.get("FIREBASE_CREDENTIALS")
 
 if firebase_creds:
+    # 如果在 Vercel 雲端，就把環境變數轉換回 JSON 字典
     cred_dict = json.loads(firebase_creds)
     cred = credentials.Certificate(cred_dict)
 else:
+    # 如果在你的本地電腦，就直接讀取實體檔案
     cred = credentials.Certificate("prespressoKey.json")
 
 firebase_admin.initialize_app(cred)
